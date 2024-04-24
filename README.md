@@ -14,7 +14,7 @@ Before running the application, make sure you have the following installed:
 1. Clone this repository:
 
 ```shell
-git clone https://github.com/your-username/interactive-quiz.git
+git clone https://github.com/herritt/interactive-quiz.git
 ```
 
 2. Navigate to the project directory:
