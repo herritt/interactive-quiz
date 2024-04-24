@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Search.css";
 
 const Search = () => {
 	const [searchTerm, setSearchTerm] = useState("");
+	const navigate = useNavigate();
 
 	const handleSearch = (event) => {
 		event.preventDefault();
-		setSearchTerm(event.target.value);
+		if (searchTerm.length) {
+			navigate(`/startQuiz?query=${encodeURIComponent(searchTerm)}`);
+		}
 	};
 
 	return (
@@ -19,7 +23,7 @@ const Search = () => {
 				onSubmit={handleSearch}
 			/>
 			<button className="search-button" onClick={handleSearch} disabled={!searchTerm.length}>
-				Search
+				{searchTerm.length ? "Search" : "Type a keyword to search"}
 			</button>
 		</div>
 	);
