@@ -4,14 +4,26 @@ FROM node:latest
 # Create app directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
-COPY package*.json ./
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+# Download dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /root/.npm to speed up subsequent builds.
+# Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
+# into this layer.
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --include=dev
 
-# Bundle app source
+
+# install nodemon for hot-reloading
+RUN npm install -g nodemon
+
+# Copy the rest of the source files into the image.
 COPY . .
 
+
+# Run the application as a non-root user.
+RUN  chown -R node /usr/src/app
+USER node
+
 EXPOSE 8080
-CMD ["npx", "nodemon", "src/server.js"]
+CMD ["npm", "start"]
