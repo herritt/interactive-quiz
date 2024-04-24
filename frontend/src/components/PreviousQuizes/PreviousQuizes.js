@@ -4,9 +4,9 @@ import "./PreviousQuizes.css";
 const PreviousQuizes = () => {
 	// Sample data for previous quiz results
 	const previousResults = [
-		{ searchTerm: "JavaScript", score: 90 },
-		{ searchTerm: "React", score: 95 },
-		{ searchTerm: "CSS", score: 85 },
+		{ category: "General Knowledge", difficulty: "Hard", numQuestions: 5, score: 90 },
+		{ category: "Musicals & Theatres", difficulty: "Medium", numQuestions: 8, score: 95 },
+		{ category: "Computers", difficulty: "Easy", numQuestions: 10, score: 85 },
 	];
 
 	return (
@@ -15,14 +15,18 @@ const PreviousQuizes = () => {
 			<table className="quiz-results-table">
 				<thead>
 					<tr>
-						<th className="table-header">Search Term</th>
+						<th className="table-header">Category</th>
+						<th className="table-header">Difficulty</th>
+						<th className="table-header"># Questions</th>
 						<th className="table-header">Score</th>
 					</tr>
 				</thead>
 				<tbody>
 					{previousResults.map((result, index) => (
 						<tr key={index}>
-							<td className="table-cell">{result.searchTerm}</td>
+							<td className="table-cell">{result.category}</td>
+							<td className="table-cell">{result.difficulty}</td>
+							<td className="table-cell">{result.numQuestions}</td>
 							<td className="table-cell">{result.score}</td>
 						</tr>
 					))}

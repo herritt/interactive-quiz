@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
-import Search from "./components/Search/Search";
+import LandingPage from "./components/LandingPage/LandingPage";
 import PreviousQuizes from "./components/PreviousQuizes/PreviousQuizes";
 import { Route, Routes } from "react-router-dom";
-import StartQuiz from "./components/StartQuiz/StartQuiz";
+import QuizPage from "./components/QuizPage/QuizPage";
 
 function App() {
+	const [quizSettings, setQuizSettings] = useState({});
+
+	const startQuiz = (settings) => {
+		setQuizSettings(settings);
+		// Landing page will redirect to Quiz Component at this stage
+	};
+
 	return (
 		<div className="container">
 			<Routes>
@@ -15,17 +22,17 @@ function App() {
 					element={
 						<>
 							<Header />
-							<Search />
+							<LandingPage onStartQuiz={startQuiz} />
 							<PreviousQuizes />
 						</>
 					}
 				/>
 				<Route
-					path="/startQuiz"
+					path="/quiz"
 					element={
 						<>
 							<Header />
-							<StartQuiz />
+							<QuizPage settings={quizSettings} />
 						</>
 					}
 				/>
