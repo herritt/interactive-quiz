@@ -42,7 +42,9 @@ const QuizPage = ({ settings }) => {
 				console.error("Error adding quiz result to database:", error);
 			}
 		};
-		addQuizResultToDatabase();
+		if (showReview && score !== null) {
+			addQuizResultToDatabase();
+		}
 	}, [score]);
 
 	useEffect(() => {
@@ -97,7 +99,6 @@ const QuizPage = ({ settings }) => {
 			}
 		});
 		setScore(correctCount);
-		//  { category: "General Knowledge", difficulty: "Hard", numQuestions: 5, score: 90 }
 	};
 
 	if (loading) return <div>Loading...</div>;

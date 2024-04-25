@@ -7,7 +7,6 @@ const authenticateToken = require("../middleware/authentication");
 // GET all quiz results for a user
 router.get("/", authenticateToken, async (req, res) => {
 	try {
-		console.log("req.user.id: ", req.user.id);
 		const user = await User.findById(req.user.id);
 
 		// Check if user exists
@@ -17,8 +16,6 @@ router.get("/", authenticateToken, async (req, res) => {
 
 		// Get all quiz results for the user
 		const quizResults = await QuizResult.find({ user: req.user.id });
-
-		console.log("quizResults: ", quizResults);
 		res.json(quizResults);
 	} catch (err) {
 		console.log("error: ", err.message);

@@ -10,13 +10,11 @@ import { Route, Routes } from "react-router-dom";
 import QuizPage from "./components/QuizPage/QuizPage";
 import SignUp from "./components/SignUp/SingUp";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function App() {
 	const [token, setToken] = useState(localStorage.getItem("token"));
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [quizSettings, setQuizSettings] = useState({});
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const localToken = localStorage.getItem("token");
@@ -32,7 +30,6 @@ function App() {
 						setIsAuthenticated(true);
 					}
 				} catch (error) {
-					console.error("Token validation error:", error);
 					// Handle token validation failure
 					localStorage.removeItem("token"); // Remove invalid token
 					setToken(null);
