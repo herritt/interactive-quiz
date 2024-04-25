@@ -25,7 +25,6 @@ router.get("/:id", authenticateToken, getUser, (req, res) => {
 
 // SIGNUP a new user
 router.post("/", async (req, res) => {
-	console.log(req.body);
 	const user = new User({
 		username: req.body.username,
 		password: req.body.password,
@@ -33,7 +32,7 @@ router.post("/", async (req, res) => {
 
 	try {
 		const newUser = await user.save();
-		res.status(201).json(newUser);
+		res.status(200).json(newUser);
 	} catch (err) {
 		res.status(400).json({ message: err.message });
 	}

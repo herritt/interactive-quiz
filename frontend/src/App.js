@@ -113,6 +113,7 @@ function App() {
 					path="/logout"
 					element={
 						<div className="content">
+							<Header />
 							<Logout setToken={setToken} setIsAuthenticated={setIsAuthenticated} />
 						</div>
 					}
