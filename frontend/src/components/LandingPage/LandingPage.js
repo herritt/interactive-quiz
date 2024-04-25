@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchTriviaCategories } from "../../api/triviaAPI";
 import "./LandingPage.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LandingPage = ({ onStartQuiz }) => {
 	const [categories, setCategories] = useState([]);

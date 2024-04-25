@@ -15,6 +15,17 @@ const QuizPage = ({ settings }) => {
 
 	useEffect(() => {
 		const loadQuestions = async () => {
+			if (
+				!settings ||
+				!settings.selectedCategory ||
+				!settings.difficulty ||
+				!settings.numberOfQuestions ||
+				!settings.selectedCategory.id
+			) {
+				navigate("/");
+				return;
+			}
+
 			const questions = await fetchQuestions(
 				settings.numberOfQuestions,
 				settings.difficulty,
@@ -29,7 +40,7 @@ const QuizPage = ({ settings }) => {
 			}
 		};
 		loadQuestions();
-	}, [settings.numberOfQuestions, settings.difficulty, settings.selectedCategory.id]);
+	}, [settings, navigate]);
 
 	const handleAnswerSelected = (option) => {
 		const updatedAnswers = [...userAnswers];
@@ -61,6 +72,8 @@ const QuizPage = ({ settings }) => {
 	if (showReview) {
 		return (
 			<div className="quiz_container">
+				<div className="results">{`${score} out of ${questions.length} correct`}</div>
+				<h2>Your Results</h2>
 				{questions.map((questionData, index) => (
 					<QuizQuestion
 						key={index}
@@ -69,7 +82,7 @@ const QuizPage = ({ settings }) => {
 						reviewMode={true}
 					/>
 				))}
-				<div className="results">{`${score} out of ${questions.length} correct`}</div>
+
 				<button className="return-home-button" onClick={() => navigate("/")}>
 					Home
 				</button>
