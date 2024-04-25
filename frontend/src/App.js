@@ -24,7 +24,6 @@ function App() {
 		const validateToken = async () => {
 			if (localToken) {
 				try {
-					// `${process.env.REACT_APP_API_URL}/token/validate`
 					const response = await axios.get(`${process.env.REACT_APP_API_URL}/token/validate`, {
 						headers: { Authorization: `Bearer ${localToken}` },
 					});

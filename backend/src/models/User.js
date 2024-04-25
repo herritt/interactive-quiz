@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
 			return hash;
 		},
 	},
+	quizResults: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "QuizResult",
+		},
+	],
 });
 
 const User = mongoose.model("User", userSchema);
