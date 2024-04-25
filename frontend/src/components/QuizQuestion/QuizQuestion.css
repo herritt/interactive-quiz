@@ -49,4 +49,5 @@
 	font-size: 1.25em;
 	padding: 0.25em 1em;
 	transition: transform 0.3s ease;
+	min-height: 200px;
 }
