@@ -12,7 +12,7 @@ const Login = ({ setToken }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		setIsFormValid(username.length > 0 && password.length > 0);
+		setIsFormValid(username.length >= 5 && password.length > 0);
 	}, [username, password, errors.login]);
 
 	const validateField = (name, value) => {
@@ -111,7 +111,11 @@ const Login = ({ setToken }) => {
 				/>
 				<div className="error">{errors.password}</div>
 
-				<button type="submit" disabled={!isFormValid}>
+				<button
+					type="submit"
+					disabled={!isFormValid}
+					className={`login_button ${!isFormValid ? "login_button_disabled" : ""}`}
+				>
 					Login
 				</button>
 			</form>
