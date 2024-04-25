@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -14,6 +16,11 @@ mongoose
 app.use(cors());
 app.use(express.json());
 app.use(routes);
+
+// Catch-all handler for React app
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);

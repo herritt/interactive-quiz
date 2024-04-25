@@ -8,7 +8,7 @@ function delay(ms) {
 }
 
 // Route to fetch questions
-router.get("/questions", async (req, res) => {
+router.get("/", async (req, res) => {
 	try {
 		const { keyword, desiredCount = 5 } = req.query; // get the keyword and desired count from the query string
 		console.log("keyword", keyword, "desiredCount", desiredCount);
