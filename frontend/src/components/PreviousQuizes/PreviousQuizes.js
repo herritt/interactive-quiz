@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./PreviousQuizes.css";
+import axios from "axios";
 
 const PreviousQuizes = () => {
-	// Sample data for previous quiz results
-	const previousResults = [
-		{ category: "General Knowledge", difficulty: "Hard", numQuestions: 5, score: 90 },
-		{ category: "Musicals & Theatres", difficulty: "Medium", numQuestions: 8, score: 95 },
-		{ category: "Computers", difficulty: "Easy", numQuestions: 10, score: 85 },
-	];
+	const [previousResults, setPreviousResults] = useState([]);
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		const headers = { Authorization: `Bearer ${token}` };
+
+		const fetchPreviousResults = async () => {
+			try {
+				// Fetch previous quiz results from the server
+				const response = await axios.get(`${process.env.REACT_APP_API_URL}/quizResults`, {
+					headers,
+				});
+				setPreviousResults(response.data);
+			} catch (error) {
+				console.error("Error fetching previous quiz results:", error);
+			}
+		};
+
+		fetchPreviousResults();
+	}, []);
 
 	return (
 		<div className="previous-quizes">
@@ -26,7 +41,7 @@ const PreviousQuizes = () => {
 						<tr key={index}>
 							<td className="table-cell">{result.category}</td>
 							<td className="table-cell">{result.difficulty}</td>
-							<td className="table-cell">{result.numQuestions}</td>
+							<td className="table-cell">{result.numberOfQuestions}</td>
 							<td className="table-cell">{result.score}</td>
 						</tr>
 					))}

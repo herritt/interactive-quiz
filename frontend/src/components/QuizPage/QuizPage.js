@@ -3,6 +3,7 @@ import { fetchQuestions } from "../../api/triviaAPI";
 import QuizQuestion from "../QuizQuestion/QuizQuestion";
 import { useNavigate } from "react-router-dom";
 import "./QuizPage.css";
+import axios from "axios";
 
 const QuizPage = ({ settings }) => {
 	const [questions, setQuestions] = useState([]);
@@ -12,6 +13,37 @@ const QuizPage = ({ settings }) => {
 	const [score, setScore] = useState(null);
 	const [showReview, setShowReview] = useState(false);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const addQuizResultToDatabase = async () => {
+			const token = localStorage.getItem("token");
+			const headers = { Authorization: `Bearer ${token}` };
+
+			const quizResult = {
+				category: settings.selectedCategory.name,
+				difficulty: settings.difficulty,
+				numberOfQuestions: settings.numberOfQuestions,
+				score,
+			};
+
+			try {
+				const response = await axios.post(
+					`${process.env.REACT_APP_API_URL}/quizResults`,
+					quizResult,
+					{
+						headers,
+					}
+				);
+
+				if (response.status === 201) {
+					console.log("Quiz result added to database");
+				}
+			} catch (error) {
+				console.error("Error adding quiz result to database:", error);
+			}
+		};
+		addQuizResultToDatabase();
+	}, [score]);
 
 	useEffect(() => {
 		const loadQuestions = async () => {
@@ -65,6 +97,7 @@ const QuizPage = ({ settings }) => {
 			}
 		});
 		setScore(correctCount);
+		//  { category: "General Knowledge", difficulty: "Hard", numQuestions: 5, score: 90 }
 	};
 
 	if (loading) return <div>Loading...</div>;
