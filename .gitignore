@@ -9,8 +9,6 @@ dist/
 .dockerignore
 .docker/
 
-# Ignore environment variables file
-.env
 
 # Ignore log files
 *.log
