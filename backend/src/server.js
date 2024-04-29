@@ -8,8 +8,12 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+const mongodbUrl = process.env.MONGODB_URL || "mongodb://mongo:27017/mydatabase";
+
+console.log("mongodbUrl:", mongodbUrl);
+
 mongoose
-	.connect("mongodb://mongo:27017/mydatabase")
+	.connect(mongodbUrl)
 	.then(() => console.log("MongoDB connected"))
 	.catch((err) => console.log("MongoDB connection error:", err));
 
@@ -19,7 +23,7 @@ app.use(routes);
 
 // Catch-all handler for React app
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname + "/client/build/index.html"));
+	res.status(404).json({ message: "Endpoint not found" });
 });
 
 app.listen(PORT, () => {

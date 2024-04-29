@@ -12,9 +12,13 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --include=dev
 
+COPY package.json package-lock.json ./
 
 # install nodemon for hot-reloading
 RUN npm install -g nodemon
+
+# Install all dependencies (including production dependencies)
+RUN npm install
 
 # Copy the rest of the source files into the image.
 COPY . .

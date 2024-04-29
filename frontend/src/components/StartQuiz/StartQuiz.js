@@ -12,7 +12,7 @@ const StartQuiz = () => {
 		setQuestions([]); // Clear questions array on effect run (search query change
 		const handler = setTimeout(() => {
 			const fetchData = async () => {
-				const res = await axios.get(`http://localhost:8080/api/questions?keyword=${query}`);
+				const res = await axios.get(`${process.env.REACT_APP_API_URL}/questions?keyword=${query}`);
 				setQuestions(res.data);
 			};
 			if (query) {
