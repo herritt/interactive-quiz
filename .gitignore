@@ -9,6 +9,7 @@ dist/
 .dockerignore
 .docker/
 
+quizspark-a3232c75e486.json
 
 # Ignore log files
 *.log
